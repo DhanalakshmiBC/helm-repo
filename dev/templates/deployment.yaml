@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      imagePullSecrets:
+      - name: my-ecr-register
+
+      containers:
+      - name: nginx
+        image: 156583401743.dkr.ecr.us-east-1.amazonaws.com/deepu:f00f756-2025-06-30-15-36
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
